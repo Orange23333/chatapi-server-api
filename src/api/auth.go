@@ -1,6 +1,7 @@
-package auth
+package api
 
 import (
+	"net/http"
 	"regexp"
 	"time"
 
@@ -39,4 +40,19 @@ func check_pass_token(ps httprouter.Params, receive_time time.Time) bool {
 	}
 
 	return false
+}
+
+// GET: /login/get-pass-token/:user_id:password_sha256:verfiy_code_answer:time_stamp
+func Get_Login_GetPassToken(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+}
+
+// DETELE: /logout/destory-pass-token/:uid:pass_token:time_stamp
+func Get_Logout_DestoryPassToken(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+}
+
+// GET: /verfiy-code/get-one/:verfiy_code_token:time_stamp"
+func Get_VerfiyCode_GetOne(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	//Return a html block
 }

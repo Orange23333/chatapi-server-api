@@ -51,7 +51,7 @@ func (h *StampingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Abs(x int64) int64 {
+func abs(x int64) int64 {
 	if x < 0 {
 		return -x
 	}
@@ -59,7 +59,7 @@ func Abs(x int64) int64 {
 }
 
 func CheckTimeStamp(time_stamp time.Time, reference_time time.Time, time_out_sec int) bool {
-	return Abs(time_stamp.Unix()-reference_time.Unix()) <= int64(time_out_sec) //Unix() is int64!
+	return abs(time_stamp.Unix()-reference_time.Unix()) <= int64(time_out_sec) //Unix() is int64!
 }
 
 func CheckHttpTimeStamp(reference_time time.Time, time_out_sec int, w http.ResponseWriter, r *http.Request, ps httprouter.Params) (bool, error) {

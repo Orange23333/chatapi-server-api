@@ -2,19 +2,15 @@ package main
 
 import (
 	"bufio"
-	"chatapi/server/api/src/stamping"
-	"encoding/json"
+	"chatapi/server/api/stamping"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"sort"
-	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
-
-var ai_model_list = []string{"gpt-j-6b"}
 
 // Error Codes and Error Messages:
 // ERC = ERror.Code, EDM = Error.DebugMessage, EPM = Error.PublicMessage
@@ -32,8 +28,8 @@ func find_string(a []string, x string) int {
 }
 
 func get_file_size(file *os.File) int64 {
-	origin_pos := file.Seek(0, os.SEEK_CUR)
-	end_pos := file.Seek(0, os.SEEK_END)
+	origin_pos, _ := file.Seek(0, os.SEEK_CUR)
+	end_pos, _ := file.Seek(0, os.SEEK_END)
 	file.Seek(origin_pos, os.SEEK_SET)
 	return end_pos
 }
@@ -83,69 +79,17 @@ func get_index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprint(w, content)
 }
 
-func get_ai_model_list(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	json_bytes, e := json.Marshal(ai_model_list)
-	if e == nil {
-		fmt.Fprint(w, string(json_bytes)+"\n")
-	} else {
-		fmt.Fprint(w, e.Error()+"\n")
-	}
-	w.WriteHeader()
-}
-
-var new_request_count int64 = 0
-
-func post_new_request(w http.ResponseWriter, r *http.Request, ps httprouter.Params) int64 {
-	text := ps.text
-	uid := ps.ByName("uid")
-	pass_token := ps.ByName("pass_token")
-
-	if check_pass_token(ps, time.Now()) {
-		err_json := map[string]string{}
-		fmt.Fprint(w, string(json)+"\n")
-	}
-
-	err := write_all(fmt.Sprintf("./requests/%s.%d.request", ps.ByName("uid"), new_request_count), ps.ByName("text"))
-	if err != nil {
-		w.WriteHeader(500)
-	}
-
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
-}
-
-func get_request_status(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are get user %s", uid)
-}
-
-func delete_cannel_request(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are modify user %s", uid)
-}
-
-func get_request_result(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	uid := ps.ByName("uid")
-	fmt.Fprintf(w, "you are delete user %s", uid)
-}
-
 func main() {
-	sort.Strings(ai_model_list)
+	sort.Strings(Ai_Model_List)
 
-	stampingHandler := stamping.New()
 	router := httprouter.New()
-	stampingHandler.subHandler = router
+	stampingHandler := stamping.New(router, false)
 
-	router.GET("/", get_index)
-
-	router.POST("/register/apply-access/test-1/:user_id:password_sha")
-
-	router.GET("/login/get-pass-token/:user_id:password_sha256:verfiy_code_answer:time_stamp")
-	router.GET("/verfiy-code/get-one/:verfiy_code_token:time_stamp") //Return a html block
-	router.DELETE("/logout/:uid:pass_token:time_stamp")
+	router.GET("/", get_index) //Use `router.ServeFiles` insteads!
 
 	router.GET("/ai-models/list", get_ai_model_list)
 
-	if find_string(ai_model_list, "gpt-j-6b") < len(ai_model_list) {
+	if find_string(Ai_Model_List, "gpt-j-6b") < len(Ai_Model_List) {
 		//之后这一步由各个模块自己完成
 		router.POST("/modules/gpt-j-6b/requests/new/:text:uid:pass_token:time_stamp", post_new_request)
 		router.GET("/modules/gpt-j-6b/requests/status/:request_id:uid:pass_token:time_stamp", get_request_status)
