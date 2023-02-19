@@ -10,14 +10,14 @@ import (
 type StampingHandler struct {
 	subHandler http.Handler
 
-	// If it is set true, the timestamp will be as same as receive time stamp if the time stamp is empty or wrong.
-	allowNoTimeStampRequest bool
+	//// If it is set true, the timestamp will be as same as receive time stamp if the time stamp is empty or wrong.
+	//allowNoTimeStampRequest bool
 }
 
-func New(subHandler http.Handler, allowNoTimeStampRequest bool) *StampingHandler {
+func New(subHandler http.Handler) *StampingHandler {
 	return &StampingHandler{
-		subHandler:              subHandler,
-		allowNoTimeStampRequest: allowNoTimeStampRequest,
+		subHandler: subHandler,
+		//allowNoTimeStampRequest: allowNoTimeStampRequest,
 	}
 }
 
@@ -38,10 +38,12 @@ func (h *StampingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var duration_zero time.Duration = 0
 
 	time_stamp_str := r.Header.Get(HEADER_KEY_TIME_STAMP)
-	t, _ := time.ParseInLocation(TIME_STAMP_EXAMPLE, time_stamp_str, loc)
 
-	if (time_stamp_str == "") || (t.Sub(time_now) > duration_zero) {
-		r.Header.Set(HEADER_KEY_TIME_STAMP, time_now.Format(TIME_STAMP_EXAMPLE))
+	if time_stamp_str == "" {
+		t, _ := time.ParseInLocation(TIME_STAMP_EXAMPLE, time_stamp_str, loc)
+		if t.Sub(time_now) > duration_zero {
+			r.Header.Set(HEADER_KEY_TIME_STAMP, time_now.Format(TIME_STAMP_EXAMPLE))
+		}
 	}
 
 	w.Header().Add(HEADER_KEY_RECEIVE_TIME_STAMP, time_now.Format(TIME_STAMP_EXAMPLE))
