@@ -79,11 +79,39 @@ func get_index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprint(w, content)
 }
 
+func ErrorsToListViewJson(errs []error, n int) string {
+	r := "{\"view\":\"list\",\"length\":" + string(n) + ",\"items\":["
+	if n > 0 {
+		r += "\"" + errs[0].Error() + "\""
+	}
+	for i := 1; i < n; i++ {
+		r += ",\"" + errs[i].Error() + "\""
+	}
+	r += "]}"
+	return r
+}
+
+func MessagesToListViewJson(messages []string, n int) string {
+	r := "{\"view\":\"list\",\"length\":" + string(n) + ",\"items\":["
+	if n > 0 {
+		r += "\"" + messages[0] + "\""
+	}
+	for i := 1; i < n; i++ {
+		r += ",\"" + messages[i] + "\""
+	}
+	r += "]}"
+	return r
+}
+
 func main() {
+	os.MkdirAll("./data/users", 0755)
+	os.MkdirAll("./data/access-application/test")
+
+	// If any method is able to change this list, remeber to call once sort.
 	sort.Strings(Ai_Model_List)
 
 	router := httprouter.New()
-	stampingHandler := stamping.New(router, false)
+	stamping := stamping.New(router)
 
 	router.GET("/", get_index) //Use `router.ServeFiles` insteads!
 
@@ -97,5 +125,5 @@ func main() {
 		router.GET("/modules/gpt-j-6b/requests/result/:request_id:uid:pass_token:time_stamp", get_request_result)
 	}
 
-	log.Fatal(http.ListenAndServe(":22388", stampingHandler))
+	log.Fatal(http.ListenAndServe(":22388", stamping))
 }

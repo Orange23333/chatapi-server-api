@@ -17,11 +17,9 @@ func get_ai_model_list(w http.ResponseWriter, r *http.Request, _ httprouter.Para
 		fmt.Fprint(w, string(json_bytes)+"\n")
 
 		w.WriteHeader(200)
-		return
 	} else {
 		fmt.Fprint(w, e.Error()+"\n")
 
 		w.WriteHeader(500)
-		return
 	}
 }
