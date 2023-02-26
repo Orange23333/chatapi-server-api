@@ -8,10 +8,11 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-var Ai_Model_List = []string{"gpt-j-6b"}
+var AiModelList = []string{"gpt-j-6b"}
 
-func get_ai_model_list(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	json_bytes, e := json.Marshal(Ai_Model_List)
+// GET: /ai-models/list
+func GetAiModelList(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	json_bytes, e := json.Marshal(AiModelList)
 
 	if e == nil {
 		fmt.Fprint(w, string(json_bytes)+"\n")

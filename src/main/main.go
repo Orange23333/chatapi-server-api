@@ -2,7 +2,8 @@ package main
 
 import (
 	"bufio"
-	"chatapi/server/api/stamping"
+	"chatapi/servers/api-server/api"
+	"chatapi/servers/api-server/stamping"
 	"fmt"
 	"log"
 	"net/http"
@@ -104,20 +105,18 @@ func MessagesToListViewJson(messages []string, n int) string {
 }
 
 func main() {
-	os.MkdirAll("./data/users", 0755)
-	os.MkdirAll("./data/access-application/test")
-
-	// If any method is able to change this list, remeber to call once sort.
-	sort.Strings(Ai_Model_List)
+	os.MkdirAll(api.UserProfilesDir, 0755)
+	os.MkdirAll("./data/access-application/test-1", 0755)
+	os.MkdirAll("./data/")
 
 	router := httprouter.New()
 	stamping := stamping.New(router)
 
 	router.GET("/", get_index) //Use `router.ServeFiles` insteads!
 
-	router.GET("/ai-models/list", get_ai_model_list)
+	router.GET("/ai-models/list", api.GetAiModelList)
 
-	if find_string(Ai_Model_List, "gpt-j-6b") < len(Ai_Model_List) {
+	if find_string(api.AiModelList, "gpt-j-6b") < len(api.AiModelList) {
 		//之后这一步由各个模块自己完成
 		router.POST("/modules/gpt-j-6b/requests/new/:text:uid:pass_token:time_stamp", post_new_request)
 		router.GET("/modules/gpt-j-6b/requests/status/:request_id:uid:pass_token:time_stamp", get_request_status)

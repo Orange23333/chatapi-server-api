@@ -3,25 +3,34 @@ package api
 import (
 	"net/http"
 	"regexp"
+	"strconv"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
 
-func check_uname_legality(userName string) bool {
+func CheckUserNameLegality(userName string) bool {
 	// 需要确保UserName没有非法字符（如../）。
 	re := regexp.MustCompile("^[A-Za-z0-9_]*$")
 	return re.MatchString(userName)
 }
 
-func check_uid_legality(userId string) bool {
+func IsUserNameExists(userName string) bool {
+
+}
+
+func CheckUidLegality(userId string) bool {
 	// 需要确保UserId没有非法字符（如../）。
 	re := regexp.MustCompile("^[1-9][0-9]*$|^0$")
 	if !re.MatchString(userId) {
 		return false
 	}
-	
-	value :=
+
+	value, err := strconv.ParseInt(userId, 10, 64)
+	if err != nil {
+		return false
+	}
+
 	return value >= 0
 }
 

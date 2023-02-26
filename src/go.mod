@@ -1,4 +1,4 @@
-module chatapi/server/api
+module chatapi/servers/api-server
 
 go 1.18
 
