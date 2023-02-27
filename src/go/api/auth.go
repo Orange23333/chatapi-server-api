@@ -16,7 +16,11 @@ func CheckUserNameLegality(userName string) bool {
 }
 
 func IsUserNameExists(userName string) bool {
+	return QueryUserIdByUserName(userName) >= 0
+}
 
+func QueryUserIdByUserName(userName string) int64 {
+	return
 }
 
 func CheckUidLegality(userId string) bool {
