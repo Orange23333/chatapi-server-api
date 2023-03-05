@@ -11,6 +11,8 @@ namespace ChatApi.Server.Api.Data
 
 		public (string HashType, string PasswordHash) PassWord { get; set; }
 
-		public 
+		public
+
+#error LICENSE不被Github识别
 	}
 }
