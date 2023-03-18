@@ -4,12 +4,26 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>Orange233</Authors>
+    <Company>Bisitsoft</Company>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EasyAbp.Abp.VerificationCode" Version="1.2.0" />
     <PackageReference Include="EleCho.Json" Version="1.2.2" />
     <PackageReference Include="EZNEW.VerificationCode.SkiaSharp" Version="2.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="NullLib.ArgsAnalysis" Version="1.0.2" />
     <PackageReference Include="NullLib.ArgsParser" Version="1.1.0" />
     <PackageReference Include="NullLib.CommandLine" Version="1.3.0.3" />
@@ -17,12 +31,10 @@
     <PackageReference Include="OurOpenSource.Data" Version="1.1.0" />
     <PackageReference Include="OurOpenSource.Net" Version="1.2.0" />
     <PackageReference Include="OurOpenSource.Security" Version="1.3.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="YamlDotNet" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Security\" />
+    <PackageReference Include="YamlDotNet" Version="13.0.2" />
   </ItemGroup>
 
 </Project>

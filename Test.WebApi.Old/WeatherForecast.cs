@@ -1,4 +1,6 @@
-namespace ChatApi.Server.Api
+using System;
+
+namespace Test.WebApi.Old
 {
 	public class WeatherForecast
 	{
@@ -8,6 +10,6 @@ namespace ChatApi.Server.Api
 
 		public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
-		public string? Summary { get; set; }
+		public string Summary { get; set; }
 	}
 }

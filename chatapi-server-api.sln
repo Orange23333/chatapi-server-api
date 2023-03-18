@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32630.192
+VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{0F0069C5-5AF8-4B27-A6C3-D6192478900D}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,7 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		LICENSE = LICENSE
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApi.Server.Api", "src\csharp\ChatApi.Server.Api\ChatApi.Server.Api.csproj", "{C8264852-7884-4BAE-B1C1-E205D823C8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApi.Server.Api", "src\csharp\ChatApi.Server.Api\ChatApi.Server.Api.csproj", "{C8264852-7884-4BAE-B1C1-E205D823C8E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApi", "src\csharp\Test.WebApi\Test.WebApi.csproj", "{C1A44402-C25E-4F5A-A6BE-EB07182E21E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.WebApi.Old", "Test.WebApi.Old\Test.WebApi.Old.csproj", "{B93B654C-4D2F-4482-9330-839B3F34F55B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +26,14 @@ Global
 		{C8264852-7884-4BAE-B1C1-E205D823C8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8264852-7884-4BAE-B1C1-E205D823C8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8264852-7884-4BAE-B1C1-E205D823C8E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A44402-C25E-4F5A-A6BE-EB07182E21E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A44402-C25E-4F5A-A6BE-EB07182E21E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A44402-C25E-4F5A-A6BE-EB07182E21E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A44402-C25E-4F5A-A6BE-EB07182E21E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93B654C-4D2F-4482-9330-839B3F34F55B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93B654C-4D2F-4482-9330-839B3F34F55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93B654C-4D2F-4482-9330-839B3F34F55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93B654C-4D2F-4482-9330-839B3F34F55B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

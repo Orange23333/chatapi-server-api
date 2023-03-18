@@ -1,3 +1,15 @@
+using ChatApi.Server.Api.Data.EntityFrameworkCore.DbContexts;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace ChatApi.Server.Api
 {
 	public class Program
@@ -13,6 +25,17 @@ namespace ChatApi.Server.Api
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 
+			builder.Services.AddDbContext<VerificationCodeContext>(options =>
+			{
+				// appsettings.json:
+				//  "ConnectionStrings": {
+				//   "DatabaseConnection": "server=localhost;database=chatapi;uid=chatapi;pwd=chatapi123;"
+				//  }
+				//options.UseMySql(Configuration.GetConnectionStrings("DatabaseConnecton"));
+				options.UseMySQL(connectionString: "server=localhost;database=chatapi;uid=chatapi;pwd=chatapi123;");
+			});
+			builder.Services.AddControllersWithViews();
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -25,25 +48,6 @@ namespace ChatApi.Server.Api
 			app.UseHttpsRedirection();
 
 			app.UseAuthorization();
-
-			var summaries = new[]
-			{
-			"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-		};
-
-			app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-			{
-				var forecast = Enumerable.Range(1, 5).Select(index =>
-					new WeatherForecast
-					{
-						Date = DateTime.Now.AddDays(index),
-						TemperatureC = Random.Shared.Next(-20, 55),
-						Summary = summaries[Random.Shared.Next(summaries.Length)]
-					})
-					.ToArray();
-				return forecast;
-			})
-			.WithName("GetWeatherForecast");
 
 			app.Run();
 		}
